@@ -33,9 +33,30 @@ def GetInputData():
         raise SystemExit(1)
     return position 
 
+def calc(p_aux):
+    ans = []
+    for i, item in enumerate(p_aux[1]):
+        ans.append(GetFloat(p_aux[1][i], 0) + GetFloat(p_aux[2][i], 0))
+    return ans
+
+def MakeOutput(p_precomp):
+    try:
+        f = open(OutputFile, "w")
+        f.write("%.3f %.3f %.3f\n" % (p_precomp[0], p_precomp[1], p_precomp[2]))
+        f.close()
+    except IOError, e:
+        print "I/O error ({0}) " + OutputFile + ": {1}".format(e.errno, e.strerror)
+        raise SystemExit(1)
+    except:
+        print "Unknown error while write " + OutputFile + ": file"
+        raise SystemExit(1)
+
 def main():
     Inputdata = GetInputData()
     print Inputdata 
+    ans = calc(Inputdata)
+    print ans
+    MakeOutput(ans)
 
 main()
 
