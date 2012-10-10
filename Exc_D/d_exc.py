@@ -42,7 +42,11 @@ def calc(p_aux):
 def MakeOutput(p_precomp):
     try:
         f = open(OutputFile, "w")
-        f.write("%.3f %.3f %.3f\n" % (p_precomp[0], p_precomp[1], p_precomp[2]))
+        for i, item in enumerate(p_precomp):
+            if i != (len(p_precomp) - 1):
+                f.write("%.3f " % (p_precomp[i]))
+            else:
+                f.write("%.3f" % (p_precomp[i]))
         f.close()
     except IOError, e:
         print "I/O error ({0}) " + OutputFile + ": {1}".format(e.errno, e.strerror)
