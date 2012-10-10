@@ -16,6 +16,7 @@ def GetFloat(s, default):
 def GetInputData():
     position = []
     inputdata = []
+    checkdata = []
     try:
         f = open(os.path.join(os.getcwd(), InputFile), 'r')
         length = f.readlines()
@@ -25,12 +26,19 @@ def GetInputData():
         else:
             for line in length:
                 inputdata = string.split(str(line), ' ')
-                position.append(inputdata)
+                for i, item in enumerate(inputdata):
+                    try:
+                        checkdata.append(float(inputdata[i]))
+                    except:
+                        print "Null"
+                position.append(checkdata)
                 inputdata = [] 
+                checkdata = [] 
         f.close()
     except IOError, e:
         print "I/O error ({0}) " + InputFile + ": {1}".format(e.errno, e.strerror)
         raise SystemExit(1)
+        
     return position 
 
 def calc(p_aux):
