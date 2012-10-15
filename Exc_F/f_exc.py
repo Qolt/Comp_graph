@@ -62,12 +62,13 @@ def calc(p_aux):
 def MakeOutput(p_aux):
     try:
         f = open(OutputFile, "w")
-        for p_precomp in p_aux:
-            for i, item in enumerate(p_precomp):
-                if i != (len(p_precomp) - 1):
-                    f.write("%.6f " % (p_precomp[i]))
+        f.write("%.1f\n" % (p_aux[0][0]))
+        for j in range (1, len(p_aux)-1):
+            for i, item in enumerate(p_aux[j]):
+                if i != (len(p_aux[j]) - 1):
+                    f.write("%.6f " % (p_aux[j][i]))
                 else:
-                    f.write("%.6f\n" % (p_precomp[i]))
+                    f.write("%.6f\n" % (p_aux[j][i]))
         f.close()
     except IOError, e:
         print "I/O error ({0}) " + OutputFile + ": {1}".format(e.errno, e.strerror)
