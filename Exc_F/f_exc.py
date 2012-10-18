@@ -55,20 +55,19 @@ def calc(p_aux):
     p_precomp.append(coord)
     coord = []
     coord.append(0.000000)
-    coord.append(p_aux[0][0])
+    coord.append(p_aux[0][1])
     p_precomp.append(coord)
     return p_precomp
 
 def MakeOutput(p_aux):
     try:
         f = open(OutputFile, "w")
-        f.write("%.1f\n" % (p_aux[0][0]))
-        for j in range (1, len(p_aux)-1):
-            for i, item in enumerate(p_aux[j]):
-                if i != (len(p_aux[j]) - 1):
-                    f.write("%.6f " % (p_aux[j][i]))
+        for p_precomp in p_aux:
+            for i, item in enumerate(p_precomp):
+                if i != (len(p_precomp) - 1):
+                    f.write("%.6f " % (p_precomp[i]))
                 else:
-                    f.write("%.6f\n" % (p_aux[j][i]))
+                    f.write("%.6f\n" % (p_precomp[i]))
         f.close()
     except IOError, e:
         print "I/O error ({0}) " + OutputFile + ": {1}".format(e.errno, e.strerror)
