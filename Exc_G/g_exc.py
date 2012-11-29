@@ -17,9 +17,9 @@ if ((inputdata[4] == inputdata[5] + dist) and (ans == "")):
     ans = "Tangent: 2 in 1"
 if ((inputdata[5] == inputdata[4] + dist) and (ans == "")):
     ans = "Tangent: 1 in 2"
-if ((inputdata[4] > dist) and (ans == "")):
+if ((inputdata[4] > dist) and (ans == "") and (inputdata[5] < inputdata[4])):
     ans = "2 inside 1"
-if ((inputdata[5] > dist) and (ans == "")):
+if ((inputdata[5] > dist) and (ans == "") and (inputdata[5] > inputdata[4])):
     ans = "1 inside 2"
 if ((dist > inputdata[4] + inputdata[5]) and (ans == "")):
     ans = "Too far"
