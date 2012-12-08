@@ -1,5 +1,4 @@
 import sys
-import random
 import string
 from OpenGL.GL import *
 from PyQt4 import QtGui, QtCore
@@ -11,7 +10,6 @@ class WfWidget(QGLWidget):
     def __init__(self, parent = None):
         super(WfWidget, self).__init__(parent)
         self.obj = "points"
-        self.params = ""
 
     def drawPoints(self):
         coord = []
@@ -231,6 +229,9 @@ class ControlWindow(QtGui.QWidget):
     def __init__ (self, parent=None):
         self.inputdata = []
         QtGui.QWidget.__init__(self, parent)
+
+        self.grid = QtGui.QGridLayout()
+
         self.label = QtGui.QLabel("Enter coordinats here:")
         self.btnPoints= QtGui.QPushButton("Draw points")
         self.btnLines= QtGui.QPushButton("Draw lines")
@@ -243,23 +244,23 @@ class ControlWindow(QtGui.QWidget):
         self.btnQuadsStrip= QtGui.QPushButton("Draw strip quads")
         self.btnPolygon= QtGui.QPushButton("Draw polygon")
         self.txtLabel = QtGui.QLineEdit()
-        validator = QtGui.QRegExpValidator(QtCore.QRegExp("((\-?\d+(\.\d{0,})?)[ ]?){0,99}"))
-        self.txtLabel.setValidator(validator)
-        vbox = QtGui.QVBoxLayout()
-        vbox.addWidget(self.label)
-        vbox.addWidget(self.txtLabel)
-        vbox.addWidget(self.btnPoints)
-        vbox.addWidget(self.btnLines)
-        vbox.addWidget(self.btnStripLines)
-        vbox.addWidget(self.btnLoopLines)
-        vbox.addWidget(self.btnTriangles)
-        vbox.addWidget(self.btnStripTriangles)
-        vbox.addWidget(self.btnStripTrianglesFan)
-        vbox.addWidget(self.btnQuads)
-        vbox.addWidget(self.btnQuadsStrip)
-        vbox.addWidget(self.btnPolygon)
-        self.setLayout(vbox)
-    
+        self.validator = QtGui.QRegExpValidator(QtCore.QRegExp("((\-?\d+(\.\d{0,})?)[ ]?){0,99}"))
+        self.txtLabel.setValidator(self.validator)
+        self.grid.addWidget(self.label)
+        self.grid.addWidget(self.txtLabel)
+        self.grid.addWidget(self.btnPoints)
+        self.grid.addWidget(self.btnLines)
+        self.grid.addWidget(self.btnStripLines)
+        self.grid.addWidget(self.btnLoopLines)
+        self.grid.addWidget(self.btnTriangles)
+        self.grid.addWidget(self.btnStripTriangles)
+        self.grid.addWidget(self.btnStripTrianglesFan)
+        self.grid.addWidget(self.btnQuads)
+        self.grid.addWidget(self.btnQuadsStrip)
+        self.grid.addWidget(self.btnPolygon)
+        self.setLayout(self.grid)
+
+
     def SetParams(self):
        global params
        self.inputdata = string.split(str(self.txtLabel.text()), " ")
