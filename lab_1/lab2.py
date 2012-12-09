@@ -13,10 +13,13 @@ class GLWidget2 (WfWidget):
     def __init__(self, parent=None):
         super(GLWidget2, self).__init__(parent)
         self.scissor_state = 0
-        self.alpha_state = 0
+        self.alpha_state = 0 
+        self.alpha_enable = 0 
+        self.blend_state = 0
     
     def drawScissor (self):
         glEnable(GL_SCISSOR_TEST)
+        global scissor_params
         if scissor_params == []:
             glScissor(50, 50, 190, 190)
         else:
@@ -24,29 +27,60 @@ class GLWidget2 (WfWidget):
 
     def drawAlpha(self):
         glEnable(GL_ALPHA_TEST)
-        glAlphaFunc(GL_GEQUAL, 0.4) 
+        global alpha_params
+        if alpha_params == []:
+            alpha_params = [10, 10, 0, 0.5]
+        try:
+            ref = alpha_params[4]
+        except:
+            ref = 0.7
+        print "Alpha params:" + str(alpha_params)
+        print "Ref: " + str(ref)
+        print "Alpha state: " + str(self.alpha_state)
+        if self.alpha_state == 0: 
+            glAlphaFunc(GL_NEVER, ref) 
+        if self.alpha_state == 1: 
+            glAlphaFunc(GL_LESS, ref) 
+        if self.alpha_state == 2: 
+            glAlphaFunc(GL_EQUAL, ref) 
+        if self.alpha_state == 3: 
+            glAlphaFunc(GL_LEQUAL, ref) 
+        if self.alpha_state == 4: 
+            glAlphaFunc(GL_GREATER, ref) 
+        if self.alpha_state == 5: 
+            glAlphaFunc(GL_NOTEQUAL, ref) 
+        if self.alpha_state == 6: 
+            glAlphaFunc(GL_GEQUAL, ref) 
+        if self.alpha_state == 7: 
+            glAlphaFunc(GL_ALWAYS, ref) 
         print "Call drawAlpha()"
-        glColor4d(0,0,10,0.5)
+        glColor4d(alpha_params[0], alpha_params[1], alpha_params[2], alpha_params[3])
         glBegin(GL_QUADS)
-        glVertex3d(30,30,9)
-        glVertex3d(-30,30,0 )
-        glVertex3d(-30,-30,0)
-        glVertex3d(30,-30,9)
+        glVertex3d(20,20,9)
+        glVertex3d(-20,20,0 )
+        glVertex3d(-20,-20,0)
+        glVertex3d(20,-20,9)
         glEnd()
         
 
     def paintGL(self):
         WfWidget.paintGL(self)
+
         if self.scissor_state ==  2:
             self.drawScissor()
         else:
             glDisable(GL_SCISSOR_TEST)
 
-        if self.alpha_state ==  2:
+        if self.alpha_enable ==  2:
             self.drawAlpha()
         else:
             glDisable(GL_ALPHA_TEST)
 
+        if self.blend_state == 2:
+            glEnable(GL_BLEND)
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+        else:
+            glDisable(GL_BLEND)
 
     def ScissorState (self, state):
         self.hide()
@@ -57,12 +91,21 @@ class GLWidget2 (WfWidget):
     def AlphaState(self, state):
         self.hide()
         print "Alpha " + str(state)
-        self.alpha_state = state
+        self.alpha_enable = state
         self.show()
 
     def setAlphaStyle(self, state):
-        print string
+        self.hide()
+        self.alpha_state = state 
+        print "Alpha " + str(state)
+        self.show()
  
+    def BlendState(self, state):
+        self.hide()
+        self.blend_state = state 
+        print "Blend state " + str(state)
+        self.show()
+
 class ControlWidget2 (ControlWindow):
     def __init__ (self, parent=None):
         super(ControlWidget2, self).__init__(parent)
@@ -78,14 +121,14 @@ class ControlWidget2 (ControlWindow):
         self.grid.addWidget(self.scissorParams, 3, 1)
         
         self.checkAlpha = QtGui.QCheckBox("Enable alpha function")
-        self.grid.addWidget(self.checkAlpha, 4, 1)
+        self.grid.addWidget(self.checkAlpha, 5, 1)
 
         self.labelAlpha = QtGui.QLabel("Color params for addition figure: ")
-        self.grid.addWidget(self.labelAlpha, 5, 1)
+        self.grid.addWidget(self.labelAlpha, 6, 1)
 
         self.alphaParams =  QtGui.QLineEdit()
         self.alphaParams.setValidator(self.validator)
-        self.grid.addWidget(self.alphaParams, 6, 1)
+        self.grid.addWidget(self.alphaParams, 7, 1)
         
         self.combo = QtGui.QComboBox()
         self.combo.addItem("GL_NEVER")
@@ -96,8 +139,11 @@ class ControlWidget2 (ControlWindow):
         self.combo.addItem("GL_NOTEQUAL")
         self.combo.addItem("GL_GEQUAL")
         self.combo.addItem("GL_ALWAYS")
-        self.grid.addWidget(self.combo, 7, 1)
+        self.grid.addWidget(self.combo, 8, 1)
         
+        self.checkBlend = QtGui.QCheckBox("Enable blend function")
+        self.grid.addWidget(self.checkBlend, 10, 1)
+
     def SetScissorParams(self):
        global scissor_params
        self.inputdata = string.split(str(self.scissorParams.text()), " ")
@@ -117,7 +163,7 @@ class ControlWidget2 (ControlWindow):
        self.inputdata = string.split(str(self.alphaParams.text()), " ")
        for i, item  in enumerate(self.inputdata):
             try:
-                self.inputdata[i] = int(self.inputdata[i])
+                self.inputdata[i] = float(self.inputdata[i])
                 self.inputdata.remove('')
             except:
                 pass
@@ -164,5 +210,7 @@ if __name__ == '__main__':
             controlWidget.SetAlphaParams)
     controlWidget.connect (controlWidget.combo, QtCore.SIGNAL("activated(int)"),
             GLWidget.setAlphaStyle)
+    controlWidget.connect (controlWidget.checkBlend, QtCore.SIGNAL("stateChanged (int)"),
+            GLWidget.BlendState)
     controlWidget.show()
     app.exec_()

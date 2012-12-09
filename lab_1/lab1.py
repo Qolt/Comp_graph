@@ -19,7 +19,7 @@ class WfWidget(QGLWidget):
             coord = [0, 0, 0, 20, 20, 20, -20, -20, 30, -30, 30, 5, 5, 30, -30, 0, 10, 10, 0]
         glPointSize(6)
         glBegin(GL_POINTS)
-        glColor3d(10, 0, 0)
+        glColor4d(10, 0, 0, 0.3)
         for i in range (0, len(coord)-2, 3):
             glVertex3d(coord[i],coord[i+1],coord[i+2])
         glEnd()
@@ -31,7 +31,7 @@ class WfWidget(QGLWidget):
         if coord == []:
             coord = [0, 0, 0, 20, 20, 20, -20, -20, 30, -30, 30, 5, 5, 30, -30, 0, 10, 10, 0]
         glBegin(GL_LINES)
-        glColor3d(0,10,0)
+        glColor4d(0,10,0,0.3)
         for i in range (0, len(coord)-2, 3):
             glVertex3d(coord[i],coord[i+1],coord[i+2])
         glEnd()
@@ -43,7 +43,7 @@ class WfWidget(QGLWidget):
         if coord == []:
             coord = [0, 0, 0, 20, 20, 20, -20, -20, 30, -30, 30, 5, 5, 30, -30, 0, 10, 10, 0]
         glBegin(GL_LINE_STRIP)
-        glColor3d(0,0,10)
+        glColor4d(0,0,10,0.3)
         for i in range (0, len(coord)-2, 3):
             glVertex3d(coord[i],coord[i+1],coord[i+2])
         glEnd()
@@ -55,7 +55,7 @@ class WfWidget(QGLWidget):
         if coord == []:
             coord = [0, 0, 0, 20, 20, 20, -20, -20, 30, -30, 30, 5, 5, 30, -30, 0, 10, 10, 0]
         glBegin(GL_LINE_LOOP)
-        glColor3d(10,0,0)
+        glColor4d(10,0,0,0.3)
         for i in range (0, len(coord)-2, 3):
             glVertex3d(coord[i],coord[i+1],coord[i+2])
         glEnd()
@@ -67,7 +67,7 @@ class WfWidget(QGLWidget):
         if coord == []:
             coord = [0, 0, 0, -20, -20, 0, 0, -20, 0, 30, 30, 0, 1, 1, 0, 0, 30, 0]
         glBegin(GL_TRIANGLES)
-        glColor3d(0,10,10)
+        glColor4d(0,10,10,0.3)
         for i in range (0, len(coord)-2, 3):
             glVertex3d(coord[i],coord[i+1],coord[i+2])
         glEnd()
@@ -79,7 +79,7 @@ class WfWidget(QGLWidget):
         if coord == []:
             coord = [0, 0, 0, 20, 20, 20, -20, -20, 30, -30, 30, 5, 5, 30, -30, 0, 10, 10, 0]
         glBegin(GL_TRIANGLE_STRIP)
-        glColor3d(0,0,10)
+        glColor4d(0,0,10,0.3)
         for i in range (0, len(coord)-2, 3):
             glVertex3d(coord[i],coord[i+1],coord[i+2])
         glEnd()  
@@ -91,7 +91,7 @@ class WfWidget(QGLWidget):
         if coord == []:
             coord = [0, 0, 0, 20, 20, 20, -20, -20, 30, -30, 30, 5, 5, 30, -30, 0, 10, 10, 0]
         glBegin(GL_TRIANGLE_FAN);
-        glColor3d(0,0,10)
+        glColor4d(0,0,10,0.3)
         for i in range (0, len(coord)-2, 3):
             glVertex3d(coord[i],coord[i+1],coord[i+2])
         glEnd()
@@ -103,7 +103,7 @@ class WfWidget(QGLWidget):
         if coord == []:
             coord = [20, 20, 0, -20, 20, 0, -20, -20, 0, 20, -20, 0, 5, 30, -30, 0, 10, 10, 0]
         glBegin(GL_QUADS);
-        glColor3d(10,0,10)
+        glColor4d(10,0,10,0.3)
         for i in range (0, len(coord)-2, 3):
             glVertex3d(coord[i],coord[i+1],coord[i+2])
         glEnd()
@@ -115,7 +115,7 @@ class WfWidget(QGLWidget):
         if coord == []:
             coord = [0, 0, 0, 20, 20, 20, -20, -20, 30, -30, 30, 5, 5, 30, -30, 0, 10, 10, 0]
         glBegin(GL_QUAD_STRIP);
-        glColor3d(0,10,0)
+        glColor4d(0,10,0,0.3)
         for i in range (0, len(coord)-2, 3):
             glVertex3d(coord[i],coord[i+1],coord[i+2])
         glEnd()
@@ -127,7 +127,7 @@ class WfWidget(QGLWidget):
         if coord == []:
             coord = [0, 0, 0, 20, 20, 20, -20, -20, 30, -30, 30, 5, 5, 30, -30, 0, 10, 10, 0]
         glBegin(GL_POLYGON);
-        glColor3d(0,0,10)
+        glColor4d(0,0,10,0.3)
         for i in range (0, len(coord)-2, 3):
             glVertex3d(coord[i],coord[i+1],coord[i+2])
         glEnd()
