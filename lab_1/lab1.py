@@ -168,61 +168,61 @@ class WfWidget(QGLWidget):
     def ShowPoints(self):
         self.hide()
         self.obj = "points"
-        print self.obj
+        print (self.obj)
         self.show() 
 
     def ShowLines(self):
         self.hide()
         self.obj = "lines"
-        print self.obj
+        print (self.obj)
         self.show() 
 
     def ShowStripLines(self):
         self.hide()
         self.obj = "strip_lines"
-        print self.obj
+        print (self.obj)
         self.show() 
 
     def ShowLoopLines(self):
         self.hide()
         self.obj = "loop_lines"
-        print self.obj
+        print (self.obj)
         self.show() 
 
     def ShowTriangles(self):
         self.hide()
         self.obj = "triangles"
-        print self.obj
+        print (self.obj)
         self.show() 
 
     def ShowStripTriangles(self):
         self.hide()
         self.obj = "strip_triangles"
-        print self.obj
+        print (self.obj)
         self.show() 
         
     def ShowTrianglesFan(self):
         self.hide()
         self.obj = "triangles_fan"
-        print self.obj
+        print (self.obj)
         self.show() 
     
     def ShowQuads(self):
         self.hide()
         self.obj = "quads"
-        print self.obj
+        print (self.obj)
         self.show() 
     
     def ShowQuadsStrip(self):
         self.hide()
         self.obj = "quads_strip"
-        print self.obj
+        print (self.obj)
         self.show() 
     
     def ShowPolygon(self):
         self.hide()
         self.obj = "polygon"
-        print self.obj
+        print (self.obj)
         self.show() 
     
 class ControlWindow(QtGui.QWidget):
@@ -272,7 +272,7 @@ class ControlWindow(QtGui.QWidget):
                 pass
        if self.inputdata == ['']:
             self.inputdata = []
-       print "Set Params: " + str(self.inputdata)
+       print ("Set Params: " , str(self.inputdata))
        params = self.inputdata
 
 if __name__ == '__main__':
